@@ -15,19 +15,19 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@intivindia.com",
-    href: "mailto:hello@intivindia.com"
+    value: "info@intivindia.in",
+    href: "mailto:info@intivindia.in"
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "+91 98765 43210",
-    href: "tel:+919876543210"
+    value: "+91 94282 46611",
+    href: "tel:+919428246611"
   },
   {
     icon: MapPin,
     label: "Location",
-    value: "Bangalore, India",
+    value: "Ahmedabad, India",
     href: "#"
   }
 ]
