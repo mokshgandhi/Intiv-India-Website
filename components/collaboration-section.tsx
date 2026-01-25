@@ -34,7 +34,7 @@ const programs = [
   "Hackathons",
   "Ideathons",
   "Incubation",
-  "SSIP",
+  "Student Startup & Innovation Policy",
   "Seed Funds",
   "Idea Labs"
 ]
