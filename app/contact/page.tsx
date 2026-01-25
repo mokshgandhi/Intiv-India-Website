@@ -21,8 +21,8 @@ const contactInfo = [
   {
     icon: Phone,
     label: "Phone",
-    value: "+91 94282 46611",
-    href: "tel:+919428246611"
+    value: "+91 94282 46611, +91 91737 47119",
+    href: "tel:+919428246611, tel:+919173747119"
   },
   {
     icon: MapPin,
