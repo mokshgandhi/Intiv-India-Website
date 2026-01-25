@@ -55,10 +55,14 @@ export function CTASection() {
               <Mail className="w-4 h-4" />
               info@intivindia.in
             </a>
-            <a href="tel:+919428246611" className="flex items-center gap-2 text-sm hover:opacity-100 transition-opacity">
-              <Phone className="w-4 h-4" />
-              +91 94282 46611
-            </a>
+              <a href="tel:+919428246611" className="flex items-center gap-2 text-sm hover:opacity-100 transition-opacity">
+    <Phone className="w-4 h-4" />
+    +91 94282 46611
+  </a>
+  <a href="tel:+919173747119" className="flex items-center gap-2 text-sm hover:opacity-100 transition-opacity">
+    <Phone className="w-4 h-4" />
+    +91 91737 47119
+  </a>
             <span className="flex items-center gap-2 text-sm">
               <MapPin className="w-4 h-4" />
               Ahmedabad, India
