@@ -51,13 +51,13 @@ export function CTASection() {
           
           {/* Contact info */}
           <div className="flex flex-wrap justify-center gap-8 opacity-70">
-            <a href="mailto:hello@intivindia.com" className="flex items-center gap-2 text-sm hover:opacity-100 transition-opacity">
+            <a href="mailto:info@intivindia.in" className="flex items-center gap-2 text-sm hover:opacity-100 transition-opacity">
               <Mail className="w-4 h-4" />
-              hello@intivindia.com
+              info@intivindia.in
             </a>
-            <a href="tel:+919876543210" className="flex items-center gap-2 text-sm hover:opacity-100 transition-opacity">
+            <a href="tel:+919428246611" className="flex items-center gap-2 text-sm hover:opacity-100 transition-opacity">
               <Phone className="w-4 h-4" />
-              +91 98765 43210
+              +91 94282 46611
             </a>
             <span className="flex items-center gap-2 text-sm">
               <MapPin className="w-4 h-4" />
