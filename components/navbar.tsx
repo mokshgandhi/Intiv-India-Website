@@ -40,7 +40,7 @@ export function Navbar() {
       <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center">
           <Image
-            src="/images/logo-intiv.png"
+            src="/images/logo-intiv.svg"
             alt="Intiv India"
             width={140}
             height={40}
