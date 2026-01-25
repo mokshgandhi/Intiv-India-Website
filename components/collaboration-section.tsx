@@ -102,21 +102,32 @@ export function CollaborationSection() {
 
         {/* CTA */}
         <div className="mt-16 text-center">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-8 rounded-3xl bg-gradient-to-br from-primary/5 via-card to-primary/5 border border-border">
-            <div className="text-center sm:text-left">
-              <div className="text-2xl font-bold text-foreground mb-2">
-                Ready to collaborate?
-              </div>
-              <div className="text-muted-foreground">
-                {"Let's"} transform your innovation into reality
-              </div>
-            </div>
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2 group">
-              Start a Conversation
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </div>
-        </div>
+  <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-8 rounded-3xl bg-gradient-to-br from-primary/5 via-card to-primary/5 border border-border">
+    <div className="text-center sm:text-left">
+      <div className="text-2xl font-bold text-foreground mb-2">
+        Ready to collaborate?
+      </div>
+      <div className="text-muted-foreground">
+        {"Let's"} transform your innovation into reality
+      </div>
+    </div>
+
+    <a
+      href="https://www.intivindia.in/contact"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Button
+        size="lg"
+        className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2 group"
+      >
+        Start a Conversation
+        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+      </Button>
+    </a>
+  </div>
+</div>
+
       </div>
     </section>
   )
