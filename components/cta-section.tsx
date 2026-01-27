@@ -32,19 +32,19 @@ export function CTASection() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-          import Link from "next/link";
-          
-          <Button 
-            asChild
-            size="lg" 
-            variant="secondary"
-            className="bg-white text-primary hover:bg-white/90 gap-2 group px-8"
-          >
-            <Link href="/contact">
+          import { useRouter } from "next/navigation"
+
+            const router = useRouter()
+            
+            <Button 
+              size="lg" 
+              variant="secondary"
+              className="bg-white text-primary hover:bg-white/90 gap-2 group px-8"
+              onClick={() => router.push("/contact")}
+            >
               Build with Intiv India
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </Button>
+            </Button>
 
             <Button 
               size="lg" 
