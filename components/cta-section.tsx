@@ -32,6 +32,9 @@ export function CTASection() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            import Link from "next/link";
+
+          <Link href="/contact">
             <Button 
               size="lg" 
               variant="secondary"
@@ -40,6 +43,8 @@ export function CTASection() {
               Build with Intiv India
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
+          </Link>
+
             <Button 
               size="lg" 
               variant="outline"
