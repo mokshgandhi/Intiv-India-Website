@@ -55,7 +55,7 @@ The structure is intentionally clean and modular to support future scale and fea
 Clone the repository and install dependencies:
 
 ```bash
-git clone <repository-url>
+git clone <github.com/mokshgandhi/Intiv-India-Website>
 cd intiv-india
 npm install
 npm run dev
