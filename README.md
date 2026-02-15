@@ -1,30 +1,61 @@
-# Intiv India website
+# Intiv India – Official Website
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+Production repository for the official **Intiv India** website.  
+🌐 Live at: https://intivindia.in
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/mokshs-projects-fba79d1c/v0-intiv-india-website)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/lWquhYRXCZg)
+This project is independently designed, structured, and maintained.  
+The codebase reflects a deliberate engineering approach focused on performance, maintainability, and scalability.
 
-## Overview
+---
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+## About
 
-## Deployment
+Intiv India operates as a product engineering and technology partner, building scalable digital systems and enterprise-grade solutions.
 
-Your project is live at:
+This repository powers the organization’s primary digital presence and represents:
 
-**[https://vercel.com/mokshs-projects-fba79d1c/v0-intiv-india-website](https://vercel.com/mokshs-projects-fba79d1c/v0-intiv-india-website)**
+- Engineering depth  
+- Structured product thinking  
+- Clean system design  
+- Modern frontend architecture  
 
-## Build your app
+---
 
-Continue building your app on:
+## Tech Stack
 
-**[https://v0.app/chat/lWquhYRXCZg](https://v0.app/chat/lWquhYRXCZg)**
+- **Framework:** Next.js  
+- **Styling:** Tailwind CSS  
+- **Deployment:** Vercel  
+- **Version Control:** GitHub  
+- **Domain:** intivindia.in  
 
-## How It Works
+The implementation prioritizes:
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+- Component reusability  
+- Optimized rendering  
+- SEO best practices  
+- Minimal and maintainable architecture  
+
+---
+
+## Project Structure
+
+/components → Reusable UI components
+/pages or /app → Route definitions and page logic
+/public → Static assets
+/styles → Global styles and configuration
+
+
+The structure is intentionally clean and modular to support future scale and feature additions.
+
+---
+
+## Local Development
+
+Clone the repository and install dependencies:
+
+```bash
+git clone <repository-url>
+cd intiv-india
+npm install
+npm run dev
