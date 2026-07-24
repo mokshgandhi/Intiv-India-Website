@@ -35,14 +35,38 @@ const contactInfo = [
 export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setIsLoading(false)
-    setIsSubmitted(true)
+    setError(null)
+
+    const form = e.currentTarget
+    const formData = new FormData(form)
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/info@intivindia.in", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: formData,
+      })
+
+      const data = await response.json().catch(() => null)
+
+      if (response.ok) {
+        setIsSubmitted(true)
+        form.reset()
+      } else {
+        setError("Something went wrong. Please try again or email us directly.")
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again or email us directly.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -150,41 +174,59 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* FormSubmit config fields */}
+                  <input type="hidden" name="_subject" value="New Contact Form Submission - IntivIndia" />
+                  <input type="hidden" name="_template" value="table" />
+                  <input type="hidden" name="_captcha" value="false" />
+                  {/* Honeypot field — bots tend to fill this in, humans never see it */}
+                  <input
+                    type="text"
+                    name="_honey"
+                    style={{ display: "none" }}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="firstName">First Name</Label>
-                      <Input id="firstName" placeholder="John" required />
+                      <Input id="firstName" name="firstName" placeholder="John" required />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="lastName">Last Name</Label>
-                      <Input id="lastName" placeholder="Doe" required />
+                      <Input id="lastName" name="lastName" placeholder="Doe" required />
                     </div>
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="john@company.com" required />
+                    <Input id="email" name="email" type="email" placeholder="john@company.com" required />
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="company">Company / Organization</Label>
-                    <Input id="company" placeholder="Your company name" />
+                    <Input id="company" name="company" placeholder="Your company name" />
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="subject">Subject</Label>
-                    <Input id="subject" placeholder="How can we help?" required />
+                    <Input id="subject" name="subject" placeholder="How can we help?" required />
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="message">Message</Label>
                     <Textarea 
                       id="message" 
+                      name="message"
                       placeholder="Tell us about your project or inquiry..." 
                       className="min-h-[150px] resize-none"
                       required
                     />
                   </div>
+
+                  {error && (
+                    <p className="text-sm text-destructive">{error}</p>
+                  )}
                   
                   <Button 
                     type="submit" 
