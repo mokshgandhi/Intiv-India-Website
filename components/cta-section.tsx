@@ -1,9 +1,12 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Mail, Phone, MapPin } from "lucide-react"
 
 export function CTASection() {
+  const router = useRouter()
+
   return (
     <section className="py-24 md:py-32 relative overflow-hidden bg-primary text-primary-foreground">
       {/* Background pattern */}
@@ -32,10 +35,6 @@ export function CTASection() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-          import { useRouter } from "next/navigation"
-
-            const router = useRouter()
-            
             <Button 
               size="lg" 
               variant="secondary"
@@ -45,7 +44,6 @@ export function CTASection() {
               Build with Intiv India
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-
             <Button 
               size="lg" 
               variant="outline"
@@ -61,14 +59,14 @@ export function CTASection() {
               <Mail className="w-4 h-4" />
               info@intivindia.in
             </a>
-              <a href="tel:+919428246611" className="flex items-center gap-2 text-sm hover:opacity-100 transition-opacity">
-    <Phone className="w-4 h-4" />
-    +91 94282 46611
-  </a>
-  <a href="tel:+919173747119" className="flex items-center gap-2 text-sm hover:opacity-100 transition-opacity">
-    <Phone className="w-4 h-4" />
-    +91 91737 47119
-  </a>
+            <a href="tel:+919428246611" className="flex items-center gap-2 text-sm hover:opacity-100 transition-opacity">
+              <Phone className="w-4 h-4" />
+              +91 94282 46611
+            </a>
+            <a href="tel:+919173747119" className="flex items-center gap-2 text-sm hover:opacity-100 transition-opacity">
+              <Phone className="w-4 h-4" />
+              +91 91737 47119
+            </a>
             <span className="flex items-center gap-2 text-sm">
               <MapPin className="w-4 h-4" />
               Ahmedabad, India
