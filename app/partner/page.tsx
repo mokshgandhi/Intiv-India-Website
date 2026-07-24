@@ -61,16 +61,39 @@ const capabilities = [
 ]
 
 export default function PartnerPage() {
-  const [selectedType, setSelectedType] = useState<string | null>(null)
+  const [selectedType, setSelectedType] = useState(null)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setIsLoading(false)
-    setIsSubmitted(true)
+    setError(null)
+
+    const form = e.currentTarget
+    const formData = new FormData(form)
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/info@intivindia.in", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: formData,
+      })
+
+      if (response.ok) {
+        setIsSubmitted(true)
+        form.reset()
+      } else {
+        setError("Something went wrong. Please try again or email us directly.")
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again or email us directly.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -201,25 +224,38 @@ export default function PartnerPage() {
                   </div>
                   
                   <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* FormSubmit config fields */}
+                    <input type="hidden" name="_subject" value="New Partnership Request - IntivIndia" />
+                    <input type="hidden" name="_template" value="table" />
+                    <input type="hidden" name="_captcha" value="false" />
+                    {/* Honeypot field — bots tend to fill this in, humans never see it */}
+                    <input
+                      type="text"
+                      name="_honey"
+                      style={{ display: "none" }}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="name">Full Name</Label>
-                        <Input id="name" placeholder="John Doe" required />
+                        <Input id="name" name="name" placeholder="John Doe" required />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="email">Work Email</Label>
-                        <Input id="email" type="email" placeholder="john@company.com" required />
+                        <Input id="email" name="email" type="email" placeholder="john@company.com" required />
                       </div>
                     </div>
                     
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="organization">Organization</Label>
-                        <Input id="organization" placeholder="Company / University name" required />
+                        <Input id="organization" name="organization" placeholder="Company / University name" required />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="role">Your Role</Label>
-                        <Input id="role" placeholder="e.g. CTO, Professor, Director" />
+                        <Input id="role" name="role" placeholder="e.g. CTO, Professor, Director" />
                       </div>
                     </div>
                     
@@ -227,6 +263,7 @@ export default function PartnerPage() {
                       <Label htmlFor="partnerType">Partnership Type</Label>
                       <select 
                         id="partnerType"
+                        name="partnerType"
                         value={selectedType || ""}
                         onChange={(e) => setSelectedType(e.target.value)}
                         className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
@@ -243,6 +280,7 @@ export default function PartnerPage() {
                       <Label htmlFor="projectIdea">Project / Partnership Idea</Label>
                       <Textarea 
                         id="projectIdea" 
+                        name="projectIdea"
                         placeholder="Describe your project idea, research area, or how you'd like to collaborate with us..." 
                         className="min-h-[120px] resize-none"
                         required
@@ -253,6 +291,7 @@ export default function PartnerPage() {
                       <Label htmlFor="timeline">Expected Timeline</Label>
                       <select 
                         id="timeline"
+                        name="timeline"
                         className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                       >
                         <option value="">Select timeline</option>
@@ -278,6 +317,10 @@ export default function PartnerPage() {
                         48h Response
                       </div>
                     </div>
+
+                    {error && (
+                      <p className="text-sm text-destructive">{error}</p>
+                    )}
                     
                     <Button 
                       type="submit" 
