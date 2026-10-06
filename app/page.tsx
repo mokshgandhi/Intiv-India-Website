@@ -1,29 +1,34 @@
 import { Navbar } from "@/components/navbar"
-import { HeroSection } from "@/components/hero-section"
-import { AboutSection } from "@/components/about-section"
-import { WhatWeBuildSection } from "@/components/what-we-build-section"
-import { HowWeWorkSection } from "@/components/how-we-work-section"
-import { WhyIntivSection } from "@/components/why-intiv-section"
-import { CollaborationSection } from "@/components/collaboration-section"
-import { CaseStoriesSection } from "@/components/case-stories-section"
-import { VisionSection } from "@/components/vision-section"
-import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
+import { Hero } from "@/components/story/hero"
+import { Prologue } from "@/components/story/prologue"
+import { About } from "@/components/story/about"
+import { WhatWeBuild } from "@/components/story/what-we-build"
+import { HowWeWork } from "@/components/story/how-we-work"
+import { WhyIntiv } from "@/components/story/why-intiv"
+import { Collaboration } from "@/components/story/collaboration"
+import { Epilogue } from "@/components/story/epilogue"
 
+/*
+  The home page reads as one story:
+  the promise (hero) -> the problem (prologue) -> who we are -> what we build ->
+  how we work -> why us -> who we build with -> the vision and invitation.
+*/
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-background">
+    <>
       <Navbar />
-      <HeroSection />
-      <AboutSection />
-      <WhatWeBuildSection />
-      <HowWeWorkSection />
-      <WhyIntivSection />
-      <CollaborationSection />
-      <CaseStoriesSection />
-      <VisionSection />
-      <CTASection />
+      <main id="main">
+        <Hero />
+        <Prologue />
+        <About />
+        <WhatWeBuild />
+        <HowWeWork />
+        <WhyIntiv />
+        <Collaboration />
+        <Epilogue />
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }

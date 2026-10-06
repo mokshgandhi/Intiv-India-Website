@@ -1,0 +1,17 @@
+[00:00:21.496] Server  WARN     ⚠ Minimum recommended TypeScript version is v5.1.0, older versions can potentially be incompatible with Next.js. Detected: 5.0.2
+[00:00:21.505] Server  LOG     
+[00:00:21.505] Server  LOG        We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+[00:00:21.506] Server  LOG        The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+[00:00:21.506] Server  LOG        	- include was updated to add 'dist/types/**/*.ts'
+[00:00:21.506] Server  LOG        	- include was updated to add 'dist/dev/types/**/*.ts'
+[00:00:21.506] Server  LOG     
+[00:00:25.177] Server  LOG      ✓ Ready in 15.9s
+[00:00:28.203] Server  LOG      ○ Compiling / ...
+[00:01:15.549] Browser WARN    Image with src "/images/logo-intiv.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:01:18.663] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:01:18.663] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/contact/","route":"/contact/"}
+[00:01:18.663] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/contact/ color: rgb(120, 120, 120) color: inherit {"dp":"/contact/","o":"http://localhost:3000/contact/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1791305641515} /_vercel/insights/view
+[00:01:21.043] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:01:21.043] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/#about color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/#about","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1791305643892} /_vercel/insights/view

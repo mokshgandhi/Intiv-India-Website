@@ -1,176 +1,87 @@
-"use client"
-
 import Link from "next/link"
 import Image from "next/image"
-import { Linkedin, Twitter, Youtube, Github } from "lucide-react"
+import { contact } from "@/lib/content"
+import { Texture } from "@/components/story/textures"
 
-const footerLinks = {
-  company: [
-    { name: "About Us", href: "/#about" },
-    { name: "Our Team", href: "#" },
-    { name: "Careers", href: "#" },
-    { name: "Contact", href: "/contact" }
-  ],
-  services: [
-    { name: "Software & AI", href: "#what-we-build" },
-    { name: "Drone Systems", href: "#what-we-build" },
-    { name: "Robotics", href: "#what-we-build" },
-    { name: "Embedded Systems", href: "#what-we-build" }
-  ],
-  collaborate: [
-    { name: "Universities", href: "#collaboration" },
-    { name: "Startups", href: "#collaboration" },
-    { name: "Enterprises", href: "#collaboration" },
-    { name: "Government", href: "#collaboration" }
-  ],
-  resources: [
-    { name: "Case Stories", href: "#case-stories" },
-    { name: "Blog", href: "#" },
-    { name: "Documentation", href: "#" },
-    { name: "FAQs", href: "#" }
-  ]
-}
+const explore = [
+  { name: "About", href: "/#about" },
+  { name: "What We Build", href: "/#what-we-build" },
+  { name: "How We Work", href: "/#how-we-work" },
+  { name: "Why Intiv", href: "/#why-intiv" },
+  { name: "Collaboration", href: "/#collaboration" },
+]
 
-const socialLinks = [
-  { name: "LinkedIn", icon: Linkedin, href: "#" },
-  { name: "Twitter", icon: Twitter, href: "#" },
-  { name: "YouTube", icon: Youtube, href: "#" },
-  { name: "GitHub", icon: Github, href: "#" }
+const workWithUs = [
+  { name: "Partner with us", href: "/partner" },
+  { name: "Contact", href: "/contact" },
 ]
 
 export function Footer() {
   return (
-    <footer className="bg-card border-t border-border">
-      <div className="container mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-12 mb-12">
-          {/* Brand */}
-          <div className="lg:col-span-2">
-            <Link href="/" className="inline-block mb-6">
-              <Image
-                src="/images/logo-intiv.png"
-                alt="Intiv India"
-                width={160}
-                height={45}
-                className="h-10 w-auto"
-              />
+    <footer className="relative isolate overflow-hidden border-t border-border bg-white">
+      <Texture variant="dots" mask="radial-gradient(50% 80% at 100% 100%, #000 10%, transparent 75%)" />
+      <div className="mx-auto max-w-7xl px-5 pb-[max(4rem,env(safe-area-inset-bottom))] pt-16 md:px-8 md:py-20">
+        <div className="grid gap-12 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <Link href="/" className="-my-2 inline-block py-2" aria-label="Intiv India home">
+              <Image src="/images/logo-intiv.svg" alt="Intiv India" width={180} height={26} className="h-6 w-auto" />
             </Link>
-            
-            <p className="text-sm text-muted-foreground leading-relaxed mb-6 max-w-sm">
-              {"India's"} elite product engineering partner. From raw ideas to real products. 
-              NDA-protected. IP-safe. Made in India. Built for the World.
+            <p className="mt-6 max-w-sm leading-relaxed text-muted-foreground">
+              {"India's"} product engineering partner. From raw ideas to real products. NDA-protected, IP-safe,
+              made in India and built for the world.
             </p>
-            
-            <div className="flex items-center gap-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary/80 transition-colors"
-                  aria-label={social.name}
-                >
-                  <social.icon className="w-5 h-5" />
+          </div>
+
+          <nav aria-label="Explore" className="md:col-span-3">
+            <h2 className="text-sm font-semibold text-ink">Explore</h2>
+            <ul className="mt-3 space-y-0.5">
+              {explore.map((link) => (
+                <li key={link.name}>
+                  <Link href={link.href} className="link-slide inline-block py-2 text-muted-foreground transition-colors hover:text-ink">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="md:col-span-4">
+            <h2 className="text-sm font-semibold text-ink">Work with us</h2>
+            <ul className="mt-3 space-y-0.5">
+              {workWithUs.map((link) => (
+                <li key={link.name}>
+                  <Link href={link.href} className="link-slide inline-block py-2 text-muted-foreground transition-colors hover:text-ink">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <a href={`mailto:${contact.email}`} className="link-slide inline-block py-2 text-muted-foreground transition-colors hover:text-ink">
+                  {contact.email}
                 </a>
-              ))}
-            </div>
-          </div>
-          
-          {/* Links */}
-          <div>
-            <h4 className="font-semibold text-foreground mb-4">Company</h4>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.name}
-                  </Link>
+              </li>
+              {contact.phones.map((phone) => (
+                <li key={phone.href}>
+                  <a href={phone.href} className="link-slide inline-block py-2 text-muted-foreground transition-colors hover:text-ink">
+                    {phone.label}
+                  </a>
                 </li>
               ))}
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-semibold text-foreground mb-4">Services</h4>
-            <ul className="space-y-3">
-              {footerLinks.services.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-semibold text-foreground mb-4">Collaborate</h4>
-            <ul className="space-y-3">
-              {footerLinks.collaborate.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-semibold text-foreground mb-4">Resources</h4>
-            <ul className="space-y-3">
-              {footerLinks.resources.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
+              <li className="py-2 text-muted-foreground">{contact.city}</li>
             </ul>
           </div>
         </div>
-        
-        {/* Bottom */}
-        <div className="pt-8 border-t border-border">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
-              <span>© 2026 Intiv India. All rights reserved.</span>
-              <Link href="#" className="hover:text-foreground transition-colors">Privacy Policy</Link>
-              <Link href="#" className="hover:text-foreground transition-colors">Terms of Service</Link>
-            </div>
-            
-            {/* Trust badges */}
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary text-xs font-medium text-secondary-foreground">
-                <div className="w-2 h-2 rounded-full bg-india-green" />
-                NDA Protected
-              </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary text-xs font-medium text-secondary-foreground">
-                <div className="w-2 h-2 rounded-full bg-saffron" />
-                IP Safe
-              </div>
-            </div>
-          </div>
-          
-          {/* Tricolor accent */}
-          <div className="mt-8 flex justify-center">
-            <div className="flex items-center gap-2">
-              <div className="w-16 h-0.5 rounded-full bg-saffron" />
-              <div className="w-16 h-0.5 rounded-full bg-muted" />
-              <div className="w-16 h-0.5 rounded-full bg-india-green" />
-            </div>
-          </div>
+
+        <div className="mt-16 flex flex-col gap-4 border-t border-border pt-8 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
+          <p>© 2026 Intiv India. All rights reserved.</p>
+          <p>NDA protected. IP safe.</p>
         </div>
+      </div>
+      {/* Brand signature: the wordmark's tricolor */}
+      <div aria-hidden className="flex h-1">
+        <div className="flex-1 bg-saffron" />
+        <div className="flex-1 bg-white" />
+        <div className="flex-1 bg-india-green" />
       </div>
     </footer>
   )

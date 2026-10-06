@@ -1,11 +1,13 @@
 import React from "react"
-import type { Metadata } from 'next'
-import { Inter, Geist_Mono } from 'next/font/google'
+import type { Metadata, Viewport } from 'next'
+import { Outfit, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { MotionProvider } from "@/components/story/motion-provider"
+import { PaperGrain } from "@/components/story/textures"
 import './globals.css'
 
-const _inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap" })
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" })
 
 export const metadata: Metadata = {
   title: 'Intiv India | Elite Product Engineering Partner',
@@ -31,15 +33,28 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  themeColor: '#fafaf9',
+  colorScheme: 'light',
+  viewportFit: 'cover',
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased`}>
-        {children}
+    <html lang="en" className={`${outfit.variable} ${geistMono.variable}`}>
+      <body className="font-sans antialiased">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-ink focus:px-5 focus:py-3 focus:text-white"
+        >
+          Skip to content
+        </a>
+        <MotionProvider>{children}</MotionProvider>
+        <PaperGrain />
         <Analytics />
       </body>
     </html>

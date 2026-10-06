@@ -5,29 +5,30 @@ import React from "react"
 import { useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { Reveal } from "@/components/story/reveal"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { 
-  GraduationCap, 
-  Rocket, 
-  Building2, 
-  Landmark, 
-  ArrowRight, 
-  CheckCircle,
-  Cpu,
-  Plane,
-  Bot,
-  Code
+import { cn } from "@/lib/utils"
+import { Texture } from "@/components/story/textures"
+import {
+  GraduationCap,
+  Rocket,
+  Building2,
+  Landmark,
+  Check,
+  Loader2,
 } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
+import { ArrowSlide, DrawnCheck, FormError } from "@/components/story/micro"
 
 const partnerTypes = [
   {
     id: "university",
     icon: GraduationCap,
     title: "University / Research",
-    description: "Joint R&D, student projects, innovation labs, and tech transfer programs.",
+    description: "Joint R&D, student projects, innovation labs and tech transfer programs.",
     benefits: ["Co-funded research", "Student internships", "Lab partnerships", "Patent collaboration"]
   },
   {
@@ -41,32 +42,35 @@ const partnerTypes = [
     id: "enterprise",
     icon: Building2,
     title: "Enterprise",
-    description: "White-label solutions, custom engineering, and innovation partnerships.",
+    description: "White-label solutions, custom engineering and innovation partnerships.",
     benefits: ["White-label products", "Dedicated teams", "IP ownership", "Long-term contracts"]
   },
   {
     id: "government",
     icon: Landmark,
     title: "Government / PSU",
-    description: "Mission-critical systems, defense tech, and public sector innovation.",
+    description: "Mission-critical systems, defense tech and public sector innovation.",
     benefits: ["DPIIT registered", "Make in India", "Security cleared", "Compliance ready"]
   }
 ]
 
 const capabilities = [
-  { icon: Code, label: "Software & AI Platforms" },
-  { icon: Plane, label: "Drone Systems (VTOL/Fixed-wing)" },
-  { icon: Bot, label: "Robotics & Automation" },
-  { icon: Cpu, label: "Embedded & IoT Systems" }
+  "Software & AI platforms",
+  "Drone systems (VTOL / fixed-wing)",
+  "Robotics & automation",
+  "Embedded & IoT systems",
 ]
 
+const selectClass =
+  "h-12 w-full cursor-pointer rounded-xl border border-input bg-white px-4 text-base text-ink outline-none transition-[box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
+
 export default function PartnerPage() {
-  const [selectedType, setSelectedType] = useState(null)
+  const [selectedType, setSelectedType] = useState<string | null>(null)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
     setError(null)
@@ -96,133 +100,144 @@ export default function PartnerPage() {
     }
   }
 
+  const choosePath = (id: string) => {
+    setSelectedType(id)
+    document.getElementById("partner-form")?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
+
   return (
-    <main className="min-h-screen bg-background">
+    <>
       <Navbar />
-      
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 relative overflow-hidden">
-        {/* Background elements */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
-        <div className="absolute top-40 left-0 w-96 h-96 bg-india-green/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-64 h-64 bg-saffron/5 rounded-full blur-3xl" />
-        
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            {/* Tricolor accent */}
-            <div className="flex justify-center mb-6">
-              <div className="flex items-center gap-1">
-                <div className="w-8 h-0.5 rounded-full bg-saffron" />
-                <div className="w-8 h-0.5 rounded-full bg-muted" />
-                <div className="w-8 h-0.5 rounded-full bg-india-green" />
-              </div>
+      <main id="main" className="relative isolate pt-16 md:pt-[72px]">
+        <Texture variant="sunrise" className="h-[90vh]" />
+        {/* Opening */}
+        <section className="pb-16 pt-16 md:pb-20 md:pt-24">
+          <div className="mx-auto max-w-7xl px-5 md:px-8">
+            <Reveal>
+              <h1 className="max-w-4xl text-[clamp(2.4rem,10vw,3rem)] font-semibold leading-[1.04] tracking-tight text-ink md:text-7xl">
+                {"Partner with India's"} <span className="text-saffron">elite engineers.</span>
+              </h1>
+              <p className="mt-6 max-w-[56ch] text-lg leading-relaxed text-ink-soft md:text-xl">
+                From raw ideas to market-ready products. Join the innovators building the future with Intiv India.
+              </p>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <ul className="mt-10 flex flex-wrap gap-2">
+                {capabilities.map((cap) => (
+                  <li key={cap} className="rounded-full border border-ink/10 bg-white px-4 py-2 text-sm text-ink">
+                    {cap}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Choose your path */}
+        <section className="relative isolate overflow-hidden border-t border-border bg-mist/60 py-16 md:py-24">
+          <Texture variant="contours" />
+          <div className="mx-auto max-w-7xl px-5 md:px-8">
+            <Reveal>
+              <h2 className="text-3xl font-semibold tracking-tight text-ink md:text-5xl">How would you like to partner?</h2>
+            </Reveal>
+
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {partnerTypes.map((type, i) => {
+                const selected = selectedType === type.id
+                return (
+                  <Reveal key={type.id} delay={i * 0.06}>
+                    <button
+                      type="button"
+                      onClick={() => choosePath(type.id)}
+                      aria-pressed={selected}
+                      className={cn(
+                        "group flex h-full w-full flex-col rounded-[20px] border p-6 text-left md:p-7 transition-[border-color,box-shadow,transform] duration-300 active:scale-[0.99]",
+                        selected
+                          ? "border-ink bg-white shadow-[0_24px_60px_-36px_rgba(11,38,64,0.45)]"
+                          : "border-ink/[0.06] bg-white hover:-translate-y-0.5 hover:border-ink/25"
+                      )}
+                    >
+                      <div className="flex items-center justify-between">
+                        <type.icon className="size-7 text-ink" strokeWidth={1.5} aria-hidden />
+                        <span
+                          className={cn(
+                            "flex size-6 items-center justify-center rounded-full border transition-[background-color,border-color,transform] duration-300 group-hover:scale-110",
+                            selected ? "border-saffron bg-saffron text-white" : "border-border"
+                          )}
+                          aria-hidden
+                        >
+                          <AnimatePresence>
+                            {selected && (
+                              <motion.span
+                                initial={{ scale: 0, rotate: -45 }}
+                                animate={{ scale: 1, rotate: 0 }}
+                                exit={{ scale: 0 }}
+                                transition={{ type: "spring", stiffness: 520, damping: 26 }}
+                                className="flex"
+                              >
+                                <Check className="size-3.5" strokeWidth={2.5} />
+                              </motion.span>
+                            )}
+                          </AnimatePresence>
+                        </span>
+                      </div>
+                      <h3 className="mt-8 text-xl font-semibold tracking-tight text-ink">{type.title}</h3>
+                      <p className="mt-2 leading-relaxed text-ink-soft">{type.description}</p>
+                      <ul className="mt-6 space-y-2 border-t border-border pt-5">
+                        {type.benefits.map((benefit) => (
+                          <li key={benefit} className="text-sm text-muted-foreground">
+                            {benefit}
+                          </li>
+                        ))}
+                      </ul>
+                    </button>
+                  </Reveal>
+                )
+              })}
             </div>
-            
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 text-balance">
-              Partner with{" "}
-              <span className="text-primary">{"India's"} Elite Engineers</span>
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              From raw ideas to market-ready products. Join the league of innovators building the future with Intiv India.
-            </p>
           </div>
-          
-          {/* Capabilities */}
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            {capabilities.map((cap) => (
-              <div 
-                key={cap.label}
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border text-sm font-medium text-muted-foreground"
-              >
-                <cap.icon className="w-4 h-4 text-primary" />
-                {cap.label}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Partner Types */}
-      <section className="pb-16">
-        <div className="container mx-auto px-6">
-          <h2 className="text-2xl font-semibold text-foreground text-center mb-10">
-            How would you like to partner?
-          </h2>
-          
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {partnerTypes.map((type) => (
-              <button
-                key={type.id}
-                type="button"
-                onClick={() => setSelectedType(type.id)}
-                className={`p-6 rounded-2xl border text-left transition-all ${
-                  selectedType === type.id
-                    ? "bg-primary/5 border-primary shadow-lg"
-                    : "bg-card border-border hover:border-primary/30 hover:shadow-md"
-                }`}
-              >
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
-                  selectedType === type.id
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-primary/10 text-primary"
-                }`}>
-                  <type.icon className="w-6 h-6" />
-                </div>
-                <h3 className="font-semibold text-foreground mb-2">{type.title}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{type.description}</p>
-                <ul className="space-y-1.5">
-                  {type.benefits.map((benefit) => (
-                    <li key={benefit} className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <div className={`w-1.5 h-1.5 rounded-full ${
-                        selectedType === type.id ? "bg-primary" : "bg-muted-foreground/50"
-                      }`} />
-                      {benefit}
-                    </li>
-                  ))}
-                </ul>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
+        {/* Partnership Form */}
+        <section id="partner-form" className="scroll-mt-24 py-16 md:py-24">
+          <div className="mx-auto grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-12 lg:gap-10">
+            <Reveal className="lg:col-span-4">
+              <h2 className="text-3xl font-semibold tracking-tight text-ink md:text-4xl">Start your partnership.</h2>
+              <p className="mt-4 max-w-[40ch] leading-relaxed text-ink-soft">
+                {"Tell us about yourself and we'll find the best way to work together."}
+              </p>
+              <ul className="mt-8 space-y-3 text-ink">
+                {["NDA available", "IP protection", "Response within 48 hours"].map((item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <Check className="size-4 text-india-green" strokeWidth={2.25} aria-hidden />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
 
-      {/* Partnership Form */}
-      <section className="pb-24">
-        <div className="container mx-auto px-6">
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-card rounded-2xl border border-border p-8 shadow-sm">
-              {isSubmitted ? (
-                <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <div className="w-16 h-16 rounded-full bg-india-green/10 flex items-center justify-center mb-6">
-                    <CheckCircle className="w-8 h-8 text-india-green" />
-                  </div>
-                  <h3 className="text-2xl font-semibold text-foreground mb-3">Partnership Request Submitted!</h3>
-                  <p className="text-muted-foreground max-w-sm mb-2">
-                    Thank you for your interest in partnering with Intiv India.
-                  </p>
-                  <p className="text-muted-foreground max-w-sm">
-                    Our partnerships team will review your request and reach out within 48 hours with next steps.
-                  </p>
-                  <Button 
-                    className="mt-8 bg-transparent" 
-                    variant="outline"
-                    onClick={() => {
-                      setIsSubmitted(false)
-                      setSelectedType(null)
-                    }}
-                  >
-                    Submit Another Request
-                  </Button>
-                </div>
-              ) : (
-                <>
-                  <div className="text-center mb-8">
-                    <h3 className="text-xl font-semibold text-foreground mb-2">Start Your Partnership Journey</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Tell us about yourself and {"we'll"} find the best way to work together.
+            <Reveal delay={0.1} className="lg:col-span-7 lg:col-start-6">
+              <div className="rounded-[20px] border border-border bg-white p-6 shadow-[0_24px_60px_-36px_rgba(11,38,64,0.35)] md:p-10">
+                {isSubmitted ? (
+                  <div role="status" className="flex flex-col items-start py-10">
+                    <DrawnCheck />
+                    <h3 className="mt-6 text-3xl font-semibold tracking-tight text-ink">Request received.</h3>
+                    <p className="mt-3 max-w-md leading-relaxed text-ink-soft">
+                      Thank you for your interest in partnering with Intiv India. Our partnerships team will review
+                      your request and reach out within 48 hours with next steps.
                     </p>
+                    <Button
+                      className="mt-8 border-ink/15 bg-white text-ink hover:bg-mist hover:text-ink"
+                      variant="outline"
+                      onClick={() => {
+                        setIsSubmitted(false)
+                        setSelectedType(null)
+                      }}
+                    >
+                      Submit another request
+                    </Button>
                   </div>
-                  
+                ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
                     {/* FormSubmit config fields */}
                     <input type="hidden" name="_subject" value="New Partnership Request - IntivIndia" />
@@ -237,36 +252,36 @@ export default function PartnerPage() {
                       autoComplete="off"
                     />
 
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Full Name</Label>
-                        <Input id="name" name="name" placeholder="John Doe" required />
+                    <div className="grid gap-6 sm:grid-cols-2">
+                      <div className="group/field space-y-2">
+                        <Label htmlFor="name" className="text-ink transition-colors group-focus-within/field:text-saffron-ink">Full name</Label>
+                        <Input id="name" name="name" placeholder="Aarav Mehta" autoComplete="name" required />
                       </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Work Email</Label>
-                        <Input id="email" name="email" type="email" placeholder="john@company.com" required />
-                      </div>
-                    </div>
-                    
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="organization">Organization</Label>
-                        <Input id="organization" name="organization" placeholder="Company / University name" required />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="role">Your Role</Label>
-                        <Input id="role" name="role" placeholder="e.g. CTO, Professor, Director" />
+                      <div className="group/field space-y-2">
+                        <Label htmlFor="email" className="text-ink transition-colors group-focus-within/field:text-saffron-ink">Work email</Label>
+                        <Input id="email" name="email" type="email" placeholder="aarav@company.in" autoComplete="email" spellCheck={false} required />
                       </div>
                     </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="partnerType">Partnership Type</Label>
-                      <select 
+
+                    <div className="grid gap-6 sm:grid-cols-2">
+                      <div className="group/field space-y-2">
+                        <Label htmlFor="organization" className="text-ink transition-colors group-focus-within/field:text-saffron-ink">Organization</Label>
+                        <Input id="organization" name="organization" placeholder="Company or university" autoComplete="organization" required />
+                      </div>
+                      <div className="group/field space-y-2">
+                        <Label htmlFor="role" className="text-ink transition-colors group-focus-within/field:text-saffron-ink">Your role</Label>
+                        <Input id="role" name="role" placeholder="e.g. CTO, Professor, Director" autoComplete="organization-title" />
+                      </div>
+                    </div>
+
+                    <div className="group/field space-y-2">
+                      <Label htmlFor="partnerType" className="text-ink transition-colors group-focus-within/field:text-saffron-ink">Partnership type</Label>
+                      <select
                         id="partnerType"
                         name="partnerType"
                         value={selectedType || ""}
-                        onChange={(e) => setSelectedType(e.target.value)}
-                        className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                        onChange={(e) => setSelectedType(e.target.value || null)}
+                        className={selectClass}
                         required
                       >
                         <option value="">Select partnership type</option>
@@ -275,25 +290,21 @@ export default function PartnerPage() {
                         ))}
                       </select>
                     </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="projectIdea">Project / Partnership Idea</Label>
-                      <Textarea 
-                        id="projectIdea" 
+
+                    <div className="group/field space-y-2">
+                      <Label htmlFor="projectIdea" className="text-ink transition-colors group-focus-within/field:text-saffron-ink">Project or partnership idea</Label>
+                      <Textarea
+                        id="projectIdea"
                         name="projectIdea"
-                        placeholder="Describe your project idea, research area, or how you'd like to collaborate with us..." 
-                        className="min-h-[120px] resize-none"
+                        placeholder="Describe your project idea, research area, or how you'd like to collaborate with us…"
+                        className="min-h-[140px] resize-none"
                         required
                       />
                     </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="timeline">Expected Timeline</Label>
-                      <select 
-                        id="timeline"
-                        name="timeline"
-                        className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                      >
+
+                    <div className="group/field space-y-2">
+                      <Label htmlFor="timeline" className="text-ink transition-colors group-focus-within/field:text-saffron-ink">Expected timeline</Label>
+                      <select id="timeline" name="timeline" className={selectClass}>
                         <option value="">Select timeline</option>
                         <option value="immediate">Immediate ({"<"} 1 month)</option>
                         <option value="short">Short-term (1-3 months)</option>
@@ -301,53 +312,35 @@ export default function PartnerPage() {
                         <option value="long">Long-term (6+ months)</option>
                       </select>
                     </div>
-                    
-                    {/* Trust indicators */}
-                    <div className="flex flex-wrap gap-3 pt-2">
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <div className="w-2 h-2 rounded-full bg-india-green" />
-                        NDA Available
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <div className="w-2 h-2 rounded-full bg-saffron" />
-                        IP Protection
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <div className="w-2 h-2 rounded-full bg-primary" />
-                        48h Response
-                      </div>
-                    </div>
 
-                    {error && (
-                      <p className="text-sm text-destructive">{error}</p>
-                    )}
-                    
-                    <Button 
-                      type="submit" 
-                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                    <FormError message={error} />
+
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="group w-full bg-ink text-white hover:bg-ink/90"
                       disabled={isLoading}
                     >
                       {isLoading ? (
-                        <span className="flex items-center gap-2">
-                          <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                          Submitting...
-                        </span>
+                        <>
+                          <Loader2 className="animate-spin" aria-hidden />
+                          Submitting…
+                        </>
                       ) : (
-                        <span className="flex items-center gap-2">
-                          Submit Partnership Request
-                          <ArrowRight className="w-4 h-4" />
-                        </span>
+                        <>
+                          Submit partnership request
+                          <ArrowSlide />
+                        </>
                       )}
                     </Button>
                   </form>
-                </>
-              )}
-            </div>
+                )}
+              </div>
+            </Reveal>
           </div>
-        </div>
-      </section>
-
+        </section>
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }
