@@ -1,9 +1,6 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { collaborators, programs } from "@/lib/content"
 import { cn } from "@/lib/utils"
 import { Reveal } from "./reveal"
-import { ArrowSlide } from "./micro"
 
 const tileTones = [
   "bg-white",
@@ -66,16 +63,6 @@ export function Collaboration() {
             </Reveal>
           ))}
         </div>
-
-        <Reveal className="mt-12 flex flex-col items-start justify-between gap-6 border-t border-border pt-10 md:flex-row md:items-center">
-          <p className="text-2xl font-medium tracking-tight text-ink">Ready to collaborate?</p>
-          <Button asChild size="lg" className="group bg-ink text-white hover:bg-ink/90">
-            <Link href="/partner">
-              Partner with us
-              <ArrowSlide />
-            </Link>
-          </Button>
-        </Reveal>
       </div>
     </section>
   )

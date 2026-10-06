@@ -274,21 +274,37 @@ export default function PartnerPage() {
                       </div>
                     </div>
 
-                    <div className="group/field space-y-2">
-                      <Label htmlFor="partnerType" className="text-ink transition-colors group-focus-within/field:text-saffron-ink">Partnership type</Label>
-                      <select
-                        id="partnerType"
-                        name="partnerType"
-                        value={selectedType || ""}
-                        onChange={(e) => setSelectedType(e.target.value || null)}
-                        className={selectClass}
-                        required
-                      >
-                        <option value="">Select partnership type</option>
-                        {partnerTypes.map((type) => (
-                          <option key={type.id} value={type.id}>{type.title}</option>
-                        ))}
-                      </select>
+                    <div className="grid gap-6 sm:grid-cols-2">
+                      <div className="group/field space-y-2">
+                        <Label htmlFor="phone" className="text-ink transition-colors group-focus-within/field:text-saffron-ink">Mobile number</Label>
+                        <Input
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          inputMode="tel"
+                          placeholder="+91 98765 43210"
+                          autoComplete="tel"
+                          pattern="[+]?[0-9 \-]{10,16}"
+                          title="Enter a valid mobile number, e.g. +91 98765 43210"
+                          required
+                        />
+                      </div>
+                      <div className="group/field space-y-2">
+                        <Label htmlFor="partnerType" className="text-ink transition-colors group-focus-within/field:text-saffron-ink">Partnership type</Label>
+                        <select
+                          id="partnerType"
+                          name="partnerType"
+                          value={selectedType || ""}
+                          onChange={(e) => setSelectedType(e.target.value || null)}
+                          className={selectClass}
+                          required
+                        >
+                          <option value="">Select partnership type</option>
+                          {partnerTypes.map((type) => (
+                            <option key={type.id} value={type.id}>{type.title}</option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
 
                     <div className="group/field space-y-2">
